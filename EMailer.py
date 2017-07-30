@@ -103,18 +103,21 @@ class Emailer(object):
         :param recipients: list
         :return: None
         """
-        if os.path.exists(content_path) and os.path.isdir(content_path):
-            files = sorted(os.listdir(content_path))
-            images = []
+        if os.path.exists(content_path):
+            if os.path.isdir(content_path):
+                files = sorted(os.listdir(content_path))
+                images = []
 
-            for file in files:
-                path = os.path.join(content_path, file)
-                if file.endswith('.html'):
-                    content = open(path, 'r', encoding='utf-8').read()
-                elif file.endswith('.jpg') or file.endswith('.jpeg') or file.endswith('.png'):
-                    images.append(path)
+                for file in files:
+                    path = os.path.join(content_path, file)
+                    if file.endswith('.html'):
+                        content = open(path, 'r', encoding='utf-8').read()
+                    elif file.endswith('.jpg') or file.endswith('.jpeg') or file.endswith('.png'):
+                        images.append(path)
+            elif os.path.isfile(content_path):
+                content = open(content_path, 'r', encoding='utf-8').read()
 
-        msg = self.prepare_email(subject, recipients, content, images)
+        msg = self.prepare_email(subject, recipients, content, images=None)
 
         mailServer = smtplib.SMTP(self.server, self.port)
         mailServer.ehlo()
