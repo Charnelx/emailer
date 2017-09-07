@@ -5,7 +5,7 @@ Small lib for sending HTML email's with embeded (not attached!) images.
 
 ### Preparation step
 Suppose you have folder named "content" wich contains html file and two images you want to use in in this file.
-In html file you should encase <img> tag with special tag <REPLACE_IMG></REPLACE_IMG>:
+In html file you should encase `<img>` tag with special tag <REPLACE_IMG>:
 
 ```html
 <a href="http://example.com" target="_blank">
